@@ -36,6 +36,7 @@ import (
 	"time"
 
 	proxyproto "github.com/armon/go-proxyproto"
+
 	"github.com/eapache/channels"
 	apiv1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
@@ -52,6 +53,7 @@ import (
 	"k8s.io/ingress-nginx/internal/ingress/annotations/class"
 	ngx_config "k8s.io/ingress-nginx/internal/ingress/controller/config"
 	"k8s.io/ingress-nginx/internal/ingress/controller/process"
+	"k8s.io/ingress-nginx/internal/ingress/controller/redis_client"
 	"k8s.io/ingress-nginx/internal/ingress/controller/store"
 	ngx_template "k8s.io/ingress-nginx/internal/ingress/controller/template"
 	"k8s.io/ingress-nginx/internal/ingress/metric"
@@ -600,6 +602,7 @@ func (n *NGINXController) OnUpdate(ingressCfg ingress.Configuration) error {
 		PublishService:             n.GetPublishService(),
 		DynamicCertificatesEnabled: n.cfg.DynamicCertificatesEnabled,
 		EnableMetrics:              n.cfg.EnableMetrics,
+		DrainedServers:             redis_client.New(),
 
 		HealthzURI:   nginx.HealthPath,
 		PID:          nginx.PID,

@@ -26,6 +26,7 @@ import (
 	apiv1 "k8s.io/api/core/v1"
 
 	"k8s.io/ingress-nginx/internal/ingress"
+	"k8s.io/ingress-nginx/internal/ingress/controller/redis_client"
 	"k8s.io/ingress-nginx/internal/ingress/defaults"
 	"k8s.io/ingress-nginx/internal/runtime"
 )
@@ -755,6 +756,7 @@ type TemplateConfig struct {
 	PublishService             *apiv1.Service
 	DynamicCertificatesEnabled bool
 	EnableMetrics              bool
+	DrainedServers             *redis_client.DrainedServers
 
 	PID          string
 	StatusSocket string
