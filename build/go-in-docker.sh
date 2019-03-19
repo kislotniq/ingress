@@ -72,6 +72,7 @@ docker run                                       \
     ${DOCKER_OPTS}                               \
     -v ${HOME}/.kube:/${HOME}/.kube              \
     -v ${PWD}:/go/src/${PKG}                     \
+    -v /Users/oleg/src/github.com:/go/src/github.com \
     -v ${PWD}/.gocache:${HOME}/.cache/go-build   \
     -v ${PWD}/bin/${ARCH}:/go/bin/linux_${ARCH}  \
     ${MINIKUBE_VOLUME}                           \
